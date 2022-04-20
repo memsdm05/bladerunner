@@ -65,7 +65,7 @@
 <body>
     <div id="scene" class="container">
         <div class="curved">
-            <video id="player" src="/scene.mp4">
+            <video id="player" src="scene.mp4">
         </div>
         <div id="shots" class="curved">
             <span id="cursor"></span>
@@ -80,7 +80,7 @@
             clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
             async function getShotData() {
-                const resp = await fetch("/shotframes.txt");
+                const resp = await fetch("shotframes.txt");
                 let text = await resp.text();
                 return text.split(/\r?\n/).map((l) => +l);
             }
