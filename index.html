@@ -52,7 +52,7 @@
 <body>
     <div id="scene" class="container">
         <div class="curved">
-            <video id="player" src="https://cdn-124.anonfiles.com/p4v8pfY0xc/d2e2c5e8-1650424023/scene.mp4">
+            <video id="player" src="https://dl.dropboxusercontent.com/s/3pqnwmd8ylbqhdj/scene.mp4?dl=0">
         </div>
         <div id="shots" class="curved"></div>
     </div>
@@ -77,6 +77,11 @@
             var shotIndex = 0;
             var FRAMEMAX = 0;
 
+            shotrange = {
+                start: 0,
+                end: 0
+            }
+
             const player = new Plyr('#player', {
                 fullscreen: {
                     enabled: false
@@ -92,6 +97,7 @@
                 let shot = document.createElement("div");
                 shot.style.width = (size * 100) + "%";
                 shot.onclick = () => { shotClicked(i) }
+                shot.id = "shot" + i;
                 timeline.appendChild(shot);
             }
 
@@ -99,10 +105,16 @@
                 shotIndex = i;
                 player.currentTime = SHOTDATA[shotIndex] * FRAMEDELTA;
             }
+
+            if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+                var local = true;
+            } else {
+                var local = fale;
+            }
             
             player.on("ready", () => {
                 setTimeout(() => {
-                    console.log(timeline.offsetWidth)
+                    // console.log(timeline.offsetWidth)
                     FRAMEMAX = Math.floor(player.duration / FRAMEDELTA);
 
                     var shotlen = SHOTDATA.length;
@@ -120,13 +132,17 @@
                             player.currentTime = SHOTDATA[shotIndex] * FRAMEDELTA + FRAMEDELTA * 3;
                         }
                     }, 1 / 30);
-                }, 200)
+                }, (local) ? 200 : 500 )
             })
 
-            // player.on("timeupdate", () => {
-            //     let offset = (player.currentTime / player.duration) * timeline.offsetWidth;
-            //     cursor.style.left = offset + "px";
-            // });
+            player.on("timeupdate", () => {
+                for (const i of SHOTDATA) {
+                    let s = byId("shot" + i);
+                    // if shotIndex == i {
+                    //     s.style.backgroundColor = 
+                    // }
+                }
+            });
         })();
     </script>
 </body>
