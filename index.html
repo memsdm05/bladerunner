@@ -216,12 +216,6 @@
             }
             
             function update() {
-                let start = frame(shotrange.start) * FRAMEDELTA;
-                let end = frame(shotrange.end) * FRAMEDELTA;
-                if (player.currentTime > end - FRAMEDELTA * 4 || player.currentTime < start) {
-                    player.currentTime = start + FRAMEDELTA * 3;
-                }
-
                 let section = MANIFEST.sections.slice().reverse().find(
                     (s) => s.frame > shotrange.start && s.frame < shotrange.end
                 )
@@ -232,6 +226,15 @@
                 details.shotNum.innerHTML = shot.index + 1;
                 details.distance.innerHTML = shot.distance;
                 details.angle.innerHTML = shot.angle;
+
+                if (shotrange.start == 0 && shotrange.end == 0)
+                    return
+
+                let start = frame(shotrange.start) * FRAMEDELTA;
+                let end = frame(shotrange.end) * FRAMEDELTA;
+                if (player.currentTime > end - FRAMEDELTA * 4 || player.currentTime < start) {
+                    player.currentTime = start + FRAMEDELTA * 3;
+                }
                 
             }
             
