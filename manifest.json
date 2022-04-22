@@ -1,0 +1,383 @@
+{
+  "shots": [
+    {
+      "frame": 0,
+      "distance": "LS",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 108,
+      "distance": "MS",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 170,
+      "distance": "MCU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 241,
+      "distance": "CU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 365,
+      "distance": "CU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 418,
+      "distance": "ECU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 517,
+      "distance": "MS",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 577,
+      "distance": "MCU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 612,
+      "distance": "MS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 811,
+      "distance": "MLS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 920,
+      "distance": "LS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 1050,
+      "distance": "MCU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 1153,
+      "distance": "MLS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 1282,
+      "distance": "MCU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 1591,
+      "distance": "MCU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 1668,
+      "distance": "MCU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 1779,
+      "distance": "LS",
+      "angle": "Eye Level",
+      "special": true
+    },
+    {
+      "frame": 1955,
+      "distance": "MCU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 2298,
+      "distance": "MCU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 2395,
+      "distance": "MCU/CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 2665,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 2748,
+      "distance": "MLS",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 2900,
+      "distance": "LS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 2974,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3069,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3150,
+      "distance": "MCU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 3236,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3324,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3420,
+      "distance": "MS",
+      "angle": "High Angle",
+      "special": true
+    },
+    {
+      "frame": 3494,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3547,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3650,
+      "distance": "MS",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 3719,
+      "distance": "LS",
+      "angle": "Eye Level",
+      "special": true
+    },
+    {
+      "frame": 3793,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3829,
+      "distance": "CU",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 3890,
+      "distance": "EXU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 3945,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 4008,
+      "distance": "MS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 4134,
+      "distance": "MS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 4245,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 4338,
+      "distance": "LS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 4558,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 4793,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 4882,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 5109,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 5172,
+      "distance": "LS",
+      "angle": "Eye Level",
+      "special": true
+    },
+    {
+      "frame": 5271,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 5374,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 5545,
+      "distance": "MS",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 5642,
+      "distance": "MCU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 5763,
+      "distance": "CU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 5885,
+      "distance": "MCU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 6016,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 6212,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 6428,
+      "distance": "MS",
+      "angle": "High Angle",
+      "special": false
+    },
+    {
+      "frame": 6566,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 6735,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 6855,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 7346,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 7706,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 7835,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    },
+    {
+      "frame": 8319,
+      "distance": "MCU",
+      "angle": "Eye Level",
+      "special": false
+    },
+    {
+      "frame": 9283,
+      "distance": "CU",
+      "angle": "Low Angle",
+      "special": false
+    }
+  ],
+  "sections": []
+}

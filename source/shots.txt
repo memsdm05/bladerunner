@@ -1,0 +1,67 @@
+; frame distance angle
+; long shot (LS), medium long shot (MLS), medium shot (MS), medium close-up (MCU), close-up (CU), extreme close up (XLS)
+; Eye level (el), High angle (ha), Low angle (la)
+
+0 LS la
+108 MS la
+170 MCU ha
+241 CU ha
+365 CU ha
+418 ECU el
+517 MS ha
+577 MCU ha
+612 MS el
+811 MLS el
+920 LS el
+1050 MCU ha
+1153 MLS el
+1282 MCU la
+1591 MCU la
+1668 MCU la
+1779 LS el *
+1955 MCU ha
+2298 MCU la
+2395 MCU/CU la
+2665 MCU el
+2748 MLS la
+2900 LS el
+2974 MCU el
+3069 MCU el
+3150 MCU ha
+3236 CU el
+3324 MCU el
+3420 MS ha *
+3494 CU el
+3547 CU el
+3650 MS la
+3719 LS el *
+3793 CU el
+3829 CU ha
+3890 EXU el
+3945 CU el
+4008 MS el
+4134 MS el
+4245 CU el
+4338 LS el
+4558 CU la
+4793 MCU el
+4882 CU el
+5109 CU la
+5172 LS el *
+5271 CU la
+5374 CU la
+5545 MS el
+5642 MCU la
+5763 CU el
+5885 MCU la
+6016 CU la
+6212 MCU el
+6428 MS ha
+6566 MCU el
+6735 CU la
+6855 CU la
+7346 CU la
+7706 CU la
+7835 CU la
+8319 MCU el
+9283 CU la
