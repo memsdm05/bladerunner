@@ -216,10 +216,6 @@
             }
             
             function update() {
-                if (shotrange.start == 0 && shotrange.end == 0) {
-                    return
-                }
-                        
                 let start = frame(shotrange.start) * FRAMEDELTA;
                 let end = frame(shotrange.end) * FRAMEDELTA;
                 if (player.currentTime > end - FRAMEDELTA * 4 || player.currentTime < start) {
