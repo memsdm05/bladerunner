@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
     <style>
+        :root {
+            --eggshell: #f4f1deff;
+            --terra-cotta: #e07a5fff;
+            --independence: #3d405bff;
+            --green-sheen: #81b29aff;
+            --deep-champagne: #f2cc8fff;
+        }
+
         body, html {
             height: 100%;
             /* HUH? */
@@ -30,12 +38,12 @@
 
         .container {
             border-radius: 10px;
-            background-color: lightcoral;
+            background-color: var(--green-sheen);
             padding: 20px;
             margin: auto;
             overflow: hidden;
             margin: 15px;
-            color: white;
+            color: var(--eggshell);
         }
 
         #shots {
@@ -44,7 +52,7 @@
             flex-wrap: nowrap;
             flex: "flex-basis";
             margin-top: 10px;
-            background-color: maroon;
+            background-color: var(--independence);
             padding: 3px;
             /* flex-grow: 4; */
             position: relative;
@@ -53,9 +61,9 @@
         #shots > div {
             height: 30px;
             border-radius: 5px;
-            border: 2px black solid;
+            border: 2px var(--independence) solid;
             /* margin: 0.3px; */
-            background-color: beige;
+            background-color: var(--eggshell);
         }
 
         #scene {
@@ -80,8 +88,8 @@
         }
 
         hr {
-            border: 1px solid white;
-            background-color: white;
+            border: 1px solid var(--eggshell);
+            background-color: var(--eggshell);
         }
 
         #distance, #angle, #duration {
@@ -99,7 +107,7 @@
         <div id="shots" class="curved"></div>
     </div>
     <div id="details" class="container">
-        <h1 id="section">Introduction</h1>
+        <h1 id="title">Introduction</h1>
         <hr>
         <h2>Section #<span id="section-num">3</span></h2>
         <h2>Shot #<span id="shot-num">3</span></h2>
@@ -107,9 +115,7 @@
         <h2>Angle: <span id="angle">Low Angle</span></h2>
         <h2>Duration: <span id="duration">3:14</span></h2>
     </div>
-    <div id="commentary" class="container">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quos fugiat repellendus repudiandae totam suscipit necessitatibus. Inventore, dignissimos voluptate, similique atque cum harum neque illum aspernatur odio magni ea commodi.</p>
-    </div>
+    <div id="commentary" class="container"></div>
     <script type="text/javascript">
         (async function() {
             if (!Plyr.supported('video', 'html5', true)) {
@@ -132,12 +138,19 @@
 
             const FRAMEDELTA = 1 / 24;
             const MANIFEST = await getShotData();
-            var FRAMEMAX = 0;
+
+            const SHOTS = MANIFEST.shots;
+            const SECTIONS = MANIFEST.sections;
 
             var shotrange = {
                 start: 0,
                 end: 0
             };
+
+            var local = location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            if (!local) {
+                alert("Please fullscreen your browser window for the best experience.")
+            }
 
             const player = new Plyr('#player', {
                 fullscreen: {
@@ -146,16 +159,20 @@
                 controls: [
                     "play", "progress", "settings", "volume", "current-time"
                 ]
+                // controls: [
+                //     "progress",
+                // ]
             });
 
             const timeline = byId("shots");
             const details = {
-                section: byId("section"),
+                title: byId("title"),
                 sectionNum: byId("section-num"),
                 shotNum: byId("shot-num"),
                 distance: byId("distance"),
                 angle: byId("angle"),
                 duration: byId("duration"),
+                commentary: byId("commentary")
             };
 
             function parseHash() {
@@ -182,11 +199,11 @@
             parseHash()
 
             function frame(idx) {
-                if (idx < MANIFEST.shots.length) {
-                    return MANIFEST.shots[idx].frame
+                if (idx < SHOTS.length) {
+                    return SHOTS[idx].frame
                 }
                 else {
-                    return MANIFEST.shots[MANIFEST.shots.length - 1].frame
+                    return SHOTS[SHOTS.length - 1].frame
                 }
             }
 
@@ -201,31 +218,41 @@
             function createShotDiv(i, size, where=-1) {
                 let shot = document.createElement("div");
                 shot.style.width = (size * 100) + "%";
-                shot.onclick = () => { jumpTo(i) }
+                shot.onclick = () => {
+                    jumpTo(i)
+                    // shot.style.backgroundColor = "red";
+                }
+                shot.title =  `Shot ${i + 1}`;
                 shot.id = "shot" + i;
                 if (where != -1) {
                     shot.title = `${i} ${where}`
                 }
                 timeline.appendChild(shot);
             }
-
-            if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-                var local = true;
-            } else {
-                var local = false;
-            }
             
             function update() {
-                let section = MANIFEST.sections.slice().reverse().find(
-                    (s) => s.frame > shotrange.start && s.frame < shotrange.end
-                )
-                let shot = MANIFEST.shots.slice().reverse().find(
-                    (f) => player.currentTime / FRAMEDELTA > f.frame
+                var shot = SHOTS.slice().reverse().find(
+                    (f) => player.currentTime / FRAMEDELTA >= f.frame
                 )
 
+                var section = SECTIONS.find(
+                    (s) => s.start >= shot.index || shot.index < s.end
+                )
+
+                let duration = (SHOTS[shot.index + 1].frame - shot.frame) * FRAMEDELTA;
+                
+                for (let i = 0; i < SHOTS.length - 1; i++) {
+                    byId("shot" + i).style.backgroundColor = "var(--eggshell)"
+                }
+                byId("shot" + shot.index).style.backgroundColor = "var(--terra-cotta)"
+
+                details.title.innerHTML = (section) ? section.title : "";
+                details.sectionNum.innerHTML = (section) ? section.index + 1 : "N/A"; 
                 details.shotNum.innerHTML = shot.index + 1;
                 details.distance.innerHTML = shot.distance;
                 details.angle.innerHTML = shot.angle;
+                details.duration.innerHTML = duration.toFixed(1) + " secs";
+                details.commentary.innerHTML = (section) ? section.body : "";
 
                 if (shotrange.start == 0 && shotrange.end == 0)
                     return
@@ -240,22 +267,15 @@
             
             player.on("ready", () => {
                 setTimeout(() => {
-                    // console.log(timeline.offsetWidth)
-                    FRAMEMAX = Math.floor(player.duration / FRAMEDELTA);
-
-                    var shotlen = MANIFEST.shots.length;
-                    for (let i = 0; i < shotlen; i++) {
-                        let where = frame(i);
-                        if (i == shotlen - 1) {
-                            var portion = (FRAMEMAX - where) / FRAMEMAX
-                        } else {
-                            var portion = (frame(i + 1) - where) / FRAMEMAX;
-                        }
+                    var framemax = Math.floor(player.duration / FRAMEDELTA)
+                    SHOTS.push({ frame: framemax });
+                    for (let i = 0; i < SHOTS.length - 1; i++) {
+                        var portion = (frame(i + 1) - frame(i)) / framemax;
                         createShotDiv(i, portion);
                     }
 
                     setInterval(update, 1 / 30);
-                }, (local) ? 200 : 500 )
+                }, (local) ? 200 : 1000 )
             })
             
             window.onhashchange = parseHash;
