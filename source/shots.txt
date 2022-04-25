@@ -6,7 +6,7 @@
 108 MS la
 170 MCU ha
 241 CU ha
-365 CU ha
+365 ECU ha
 418 ECU el
 517 MS ha
 577 MCU ha

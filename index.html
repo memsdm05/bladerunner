@@ -14,6 +14,8 @@
             --independence: #3d405bff;
             --green-sheen: #81b29aff;
             --deep-champagne: #f2cc8fff;
+            --platnium: #E4E4E4;
+            --tumbleweed: #d8a47fff;
         }
 
         body, html {
@@ -80,7 +82,7 @@
         #commentary {
             flex-basis: 100%;
             min-height: 40%;
-            width: 100%;
+            overflow: auto;
             /* height: 30%; */
             flex-grow: 3;
             font-size: large;
@@ -117,6 +119,8 @@
     </div>
     <div id="commentary" class="container"></div>
     <script type="text/javascript">
+        // This is a cool pallette: https://coolors.co/000000-fffffc-beb7a4-ff7f11-ff1b1c
+        
         (async function() {
             if (!Plyr.supported('video', 'html5', true)) {
                 alert("please update your web browser, it's very old");
@@ -146,7 +150,7 @@
                 start: 0,
                 end: 0
             };
-
+            var loopback = false;
             var local = location.hostname === "localhost" || location.hostname === "127.0.0.1"
             if (!local) {
                 alert("Please fullscreen your browser window for the best experience.")
@@ -215,18 +219,15 @@
                 location.hash = where;
             }
 
-            function createShotDiv(i, size, where=-1) {
+            function createShotDiv(i, size, where) {
                 let shot = document.createElement("div");
                 shot.style.width = (size * 100) + "%";
                 shot.onclick = () => {
                     jumpTo(i)
                     // shot.style.backgroundColor = "red";
                 }
-                shot.title =  `Shot ${i + 1}`;
+                shot.title =  `Shot ${i + 1} @ ${where}`;
                 shot.id = "shot" + i;
-                if (where != -1) {
-                    shot.title = `${i} ${where}`
-                }
                 timeline.appendChild(shot);
             }
             
@@ -242,7 +243,12 @@
                 let duration = (SHOTS[shot.index + 1].frame - shot.frame) * FRAMEDELTA;
                 
                 for (let i = 0; i < SHOTS.length - 1; i++) {
-                    byId("shot" + i).style.backgroundColor = "var(--eggshell)"
+                    if (shotrange.start <= i && i < shotrange.end) {
+                        var color = "tumbleweed"
+                    } else {
+                        var color = "eggshell"
+                    }
+                    byId("shot" + i).style.backgroundColor = `var(--${color})`;
                 }
                 byId("shot" + shot.index).style.backgroundColor = "var(--terra-cotta)"
 
@@ -253,16 +259,18 @@
                 details.angle.innerHTML = shot.angle;
                 details.duration.innerHTML = duration.toFixed(1) + " secs";
                 details.commentary.innerHTML = (section) ? section.body : "";
-
+                
                 if (shotrange.start == 0 && shotrange.end == 0)
                     return
-
+                
+            
                 let start = frame(shotrange.start) * FRAMEDELTA;
                 let end = frame(shotrange.end) * FRAMEDELTA;
                 if (player.currentTime > end - FRAMEDELTA * 4 || player.currentTime < start) {
+                    loopback = true;
                     player.currentTime = start + FRAMEDELTA * 3;
+                    setTimeout(() => { loopback = false; }, 100);
                 }
-                
             }
             
             player.on("ready", () => {
@@ -270,12 +278,18 @@
                     var framemax = Math.floor(player.duration / FRAMEDELTA)
                     SHOTS.push({ frame: framemax });
                     for (let i = 0; i < SHOTS.length - 1; i++) {
+                        let where = frame(i);
                         var portion = (frame(i + 1) - frame(i)) / framemax;
-                        createShotDiv(i, portion);
+                        createShotDiv(i, portion, where);
                     }
 
                     setInterval(update, 1 / 30);
                 }, (local) ? 200 : 1000 )
+            })
+
+            player.on("seeking", () => {
+                if (!loopback)
+                    location.hash = ""
             })
             
             window.onhashchange = parseHash;
