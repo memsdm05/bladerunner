@@ -191,8 +191,8 @@
                     shotrange.start = idx;
                     shotrange.end = idx + 1;
                 } else if (parts.length == 2) {
-                    shotrange.start = parts[0];
-                    shotrange.end = parts[1];
+                    shotrange.start = +parts[0];
+                    shotrange.end = +parts[1];
                 } else {
                     shotrange.start = 0;
                     shotrange.end = 0;
@@ -260,10 +260,10 @@
                 details.duration.innerHTML = duration.toFixed(1) + " secs";
                 details.commentary.innerHTML = (section) ? section.body : "";
                 
-                if (shotrange.start == 0 && shotrange.end == 0)
+                if (shotrange.start == 0 && shotrange.end == 0) {
                     return
-                
-            
+                }
+
                 let start = frame(shotrange.start) * FRAMEDELTA;
                 let end = frame(shotrange.end) * FRAMEDELTA;
                 if (player.currentTime > end - FRAMEDELTA * 4 || player.currentTime < start) {
@@ -288,8 +288,13 @@
             })
 
             player.on("seeking", () => {
+                // let startframe = frame(shotrange.start).frame;
+                // let endframe = frame(shotrange.end).frame;
+                // let currentFrame = player.currentTime / FRAMEDELTA;
+                // && currentFrame < startframe && endframe >= shotrange.start
                 if (!loopback)
                     location.hash = ""
+                    
             })
             
             window.onhashchange = parseHash;
