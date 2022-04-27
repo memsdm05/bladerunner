@@ -26,11 +26,13 @@
         body{
             font-family: "Rubik", sans-serif;
             overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: stretch;
-            /* align-items: stretch; */
-            /* flex-shrink: 0; */
+            display: grid; 
+            grid-template-columns: 1fr 1.2fr 0.8fr; 
+            grid-template-rows: 1fr 1fr; 
+            gap: 10px 10px; 
+            grid-template-areas: 
+                "scene scene scene"
+                "commentary commentary details"; 
         }
 
         .curved {
@@ -38,7 +40,7 @@
             overflow: hidden; 
         }
 
-        .container {
+        .panel {
             border-radius: 10px;
             background-color: var(--green-sheen);
             padding: 20px;
@@ -68,25 +70,31 @@
             background-color: var(--eggshell);
         }
 
+        .scene-wrapper {
+            flex-grow: 2;
+            box-sizing: border-box;
+            width: 60%;
+            padding: 10px;
+        }
+        
+        
         #scene {
-            /* width: 60%; */
-            flex-basis: 40%;
-            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-inline: 22%;
+            grid-area: scene;
         }
 
         #details {
-            flex: 1;
-            flex-grow: 1;
+            grid-area: details;
         }
         
         #commentary {
-            flex-basis: 100%;
-            min-height: 40%;
             overflow: auto;
-            /* height: 30%; */
-            flex-grow: 3;
-            font-size: large;
-            /* flex-grow: 3; */
+            font-size: x-large;
+            grid-area: commentary;
+            scrollbar-width: thin;
         }
 
         hr {
@@ -99,16 +107,18 @@
         }
 
     </style>
-    <title>Scene Thing</title>
+    <title>Blade Runner Scene Viewer</title>
 </head>
 <body>
-    <div id="scene" class="container">
-        <div class="curved">
-            <video id="player" src="https://dl.dropboxusercontent.com/s/3pqnwmd8ylbqhdj/scene.mp4?dl=0">
+    <div id="scene" class="panel">
+        <div class="scene-wrapper">
+            <div class="curved">
+                <video id="player" preload src="https://dl.dropboxusercontent.com/s/3pqnwmd8ylbqhdj/scene.mp4?dl=0">
+            </div>
+            <div id="shots" class="curved"></div>
         </div>
-        <div id="shots" class="curved"></div>
     </div>
-    <div id="details" class="container">
+    <div id="details" class="panel">
         <h1 id="title">Introduction</h1>
         <hr>
         <h2>Section #<span id="section-num">3</span></h2>
@@ -117,7 +127,7 @@
         <h2>Angle: <span id="angle">Low Angle</span></h2>
         <h2>Duration: <span id="duration">3:14</span></h2>
     </div>
-    <div id="commentary" class="container"></div>
+    <div id="commentary" class="panel"></div>
     <script type="text/javascript">
         // This is a cool pallette: https://coolors.co/000000-fffffc-beb7a4-ff7f11-ff1b1c
         
@@ -148,7 +158,7 @@
 
             var shotrange = {
                 start: 0,
-                end: 0
+                end: 0,
             };
             var loopback = false;
             var local = location.hostname === "localhost" || location.hostname === "127.0.0.1"
@@ -222,9 +232,14 @@
             function createShotDiv(i, size, where) {
                 let shot = document.createElement("div");
                 shot.style.width = (size * 100) + "%";
+                var section = SECTIONS.find(
+                    (s) => s.start >= i || i < s.end
+                )
                 shot.onclick = () => {
-                    jumpTo(i)
-                    // shot.style.backgroundColor = "red";
+                    if (shotrange.end - shotrange.start === 1)
+                        jumpTo(section.start, section.end)
+                    else
+                        jumpTo(i)
                 }
                 shot.title =  `Shot ${i + 1} @ ${where}`;
                 shot.id = "shot" + i;

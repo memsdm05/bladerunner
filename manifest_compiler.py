@@ -46,6 +46,8 @@ with open(sys.argv[2], "r", encoding='utf-8') as f:
 
         body = ""
         while (body_line := f.readline()) != "\n":
+            body_line = body_line.strip()
+            body_line = re.sub()
             body += body_line.strip() + "<br><br>"
 
         sections.append({
